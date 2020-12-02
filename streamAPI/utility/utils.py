@@ -2,8 +2,9 @@
 author: Shiv
 email: shivkj001@gmail.com
 """
-
+import codecs
 import json
+import pickle as pkl
 from csv import DictReader, reader as ListReader
 from datetime import date, datetime, timedelta
 from functools import partial, singledispatch, wraps
@@ -12,10 +13,10 @@ from operator import itemgetter
 from os import getpid, walk
 from os.path import abspath, join
 from time import time
-from tkinter import Tk
-from typing import Callable, Dict, Iterable, List, Tuple, Union
-
 from psutil import Process
+from typing import Callable, Dict, Iterable, List, Tuple, Union
+from tkinter import Tk
+
 
 from streamAPI.utility.Types import DateTime, Filter, Function, PathGenerator, T, X, Y
 
@@ -452,6 +453,32 @@ def comparing(func: Function):
 
 def get_clipboard() -> str:
     return Tk().clipboard_get()
+
+
+def object_serializer(obj) -> str:
+    """
+    :param obj: an object which can be pickled
+    :return: string serialized version of object. To de-serialize the object use, #object_de_serializer function
+    """
+    to_bytes = pkl.dumps(obj)
+    pkl_byte_to_base64_byte = codecs.encode(to_bytes, 'base64')
+    base64_to_utf_8_decoded = pkl_byte_to_base64_byte.decode()
+
+    return base64_to_utf_8_decoded
+
+
+def object_de_serializer(obj_str: str):
+    """
+    converts object serialized string into respective object. Object should have
+    been serialized by #object_serializer function
+    :param obj_str: serialized string from function #object_serializer
+    :return: de-serialized object
+    """
+    to_utf_bytes = obj_str.encode()
+    utf_byte_base64_byte = codecs.decode(to_utf_bytes, 'base64')
+    to_picklable_obj = pkl.loads(utf_byte_base64_byte)
+
+    return to_picklable_obj
 
 
 # ------------ importing function defined only in this module-------------
