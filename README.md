@@ -1,5 +1,5 @@
 # How do I set up?
-* Make sure that you use python3.6 or above
+* Make sure that you use python3.8 or above
 * Inside a virtualenv            : pip3 install streamAPI -U
 * If you want to install globally: sudo -H pip3 install streamAPI -U
 * To install via git: pip3 install git+https://github.com/ShivKJ/Basics.git@master

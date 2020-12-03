@@ -18,7 +18,7 @@ setup(
     description='basics utility and stream processing functionality',
     long_description='basics utility and stream processing functionality',
     install_requires=dependencies,
-    python_requires='>=3.6',
+    python_requires='>=3.8',
     platforms='ubuntu',
     classifiers=(
         'Programming Language :: Python :: 3.6',

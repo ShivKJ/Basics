@@ -16,7 +16,7 @@ from time import time
 from psutil import Process
 from typing import Callable, Dict, Iterable, List, Tuple, Union
 from tkinter import Tk
-
+from dataclasses import dataclass, field
 
 from streamAPI.utility.Types import DateTime, Filter, Function, PathGenerator, T, X, Y
 
@@ -107,7 +107,7 @@ def memory_usage(pid=None):
 
 # -----------------------------------------------------
 
-
+@dataclass
 class DB:
     """
     This class provide functionality to create connection object.
@@ -115,15 +115,11 @@ class DB:
 
     The underline database used is postgreSQL.
     """
-
-    def __init__(self, *, dbname: str,
-                 user: str, password: str,
-                 host: str = 'localhost', port: int = 5432):
-        self.dbname = dbname
-        self.user = user
-        self.password = password
-        self.host = host
-        self.port = port
+    dbname: str
+    user: str
+    password: str
+    host: str = field(default='localhost')
+    port: int = field(default=5432)
 
     @property
     def dict_conn(self):
